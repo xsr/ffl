@@ -26,13 +26,17 @@ std::string interpret(const std::string & src) {
 
   // auto fift_lib_stream = std::make_unique<std::stringstream>(std::move(source_lookup.lookup_source("Fift.fif", lib_dir).ok().data));
 
-  // auto fift_lib_stream = std::make_unique<std::stringstream>(std::move(fift_fif_src));
-  // ctx.enter_ctx("Fift.fif", current_dir, std::move(fift_lib_stream));
-  // ctx.run(td::make_ref<fift::InterpretCont>());
+  auto fift_lib_stream = std::make_unique<std::stringstream>(std::move(fift_fif_src));
+  ctx.enter_ctx("Fift.fif", current_dir, std::move(fift_lib_stream));
+  ctx.run(td::make_ref<fift::InterpretCont>());
 
-  // auto source_stream = std::make_unique<std::stringstream>(std::move(src));
-  // ctx.enter_ctx("stdin", current_dir, std::move(source_stream));
-  // ctx.run(td::make_ref<fift::InterpretCont>());
+  auto asm_lib_stream = std::make_unique<std::stringstream>(std::move(asm_fif_src));
+  ctx.enter_ctx("Asm.fif", current_dir, std::move(asm_lib_stream));
+  ctx.run(td::make_ref<fift::InterpretCont>());
+
+  auto source_stream = std::make_unique<std::stringstream>(std::move(src));
+  ctx.enter_ctx("stdin", current_dir, std::move(source_stream));
+  ctx.run(td::make_ref<fift::InterpretCont>());
 
   return output.str();
 }
