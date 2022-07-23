@@ -10,7 +10,7 @@
 
 namespace funC {
 int verbosity = -1, indent = 1, opt_level = 2;
-bool stack_layout_comments = true, op_rewrite_comments = true, program_envelope = true, asm_preamble = true;
+bool stack_layout_comments = true, op_rewrite_comments = true, program_envelope = true, asm_preamble = false;
 
 std::ostream* outs = &std::cout;
 std::string generated_from, boc_output_filename;
